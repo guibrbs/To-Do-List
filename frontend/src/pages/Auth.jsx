@@ -1,6 +1,9 @@
+import { useState } from "react";
 import auth_illustration from "../assets/auth_illustration.svg";
 import SignIn from "../componentes/SignIn";
+import SignUp from "../componentes/SignUp";
 const Auth = () => {
+  const [showSignUp, setShowSignUp] = useState(false);
   return (
     <section className="w-screen h-screen p-5 flex justify-between">
       <div className="w-3/6 h-full bg-secondary rounded-xl bg-pattern-background flex flex-col 
@@ -9,7 +12,7 @@ const Auth = () => {
         <img src={auth_illustration} alt="To-do Illustration" className="2xl:w-[550px] w-96" />
       </div>
       <div className="w-3/6 flex flex-col items-center justify-center">
-        <SignIn />
+        {showSignUp ? <SignUp setShowSignUp={setShowSignUp} /> : <SignIn setShowSignUp={setShowSignUp} />}
       </div>
     </section>
   );
