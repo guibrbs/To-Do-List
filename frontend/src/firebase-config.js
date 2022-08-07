@@ -45,6 +45,6 @@ export const signIn = async (email, password) => {
         password
       );
     } catch (e) {
-      console.log(e);
+      return({error: e.code});
     }
 };
