@@ -1,10 +1,11 @@
-import Auth from "./pages/Auth";
+import UserProvider from "./context/UserContext";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <div>
-      <Auth />
-    </div>
+    <UserProvider>
+      <AppRoutes />
+    </UserProvider>
   );
 }
 
