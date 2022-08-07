@@ -1,6 +1,9 @@
+import Auth from "./pages/Auth";
+
 function App() {
   return (
-    <div className="">
+    <div>
+      <Auth />
     </div>
   );
 }
