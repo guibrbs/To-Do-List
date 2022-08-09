@@ -1,7 +1,9 @@
 /** @type {import('tailwindcss').Config} */ 
 module.exports = {
+  mode: 'jit',
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    './public/**/*.html',
+    './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
@@ -16,7 +18,8 @@ module.exports = {
       'text': '#F6F6F6',
       'textDarker': '#B7B7B7',
       'primary': '#00897B',
-      'primaryDarker': '#007165'
+      'primaryDarker': '#007165',
+      'pink': '#FC76A0',
     }
   },
   plugins: [],
