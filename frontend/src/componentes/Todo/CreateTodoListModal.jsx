@@ -11,7 +11,6 @@ const CreateTodoListModal = ({setOpenCreateTodoListModal, setOpenTodoListModal, 
     const response = await createTodoList(todoListName, userDocID);
     if (response){
         setOpenCreateTodoListModal(false);
-        console.log(todoListName)
         setTodoTitle(todoListName)
         setOpenTodoListModal(true);
     }   

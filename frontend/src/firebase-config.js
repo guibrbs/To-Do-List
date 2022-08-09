@@ -82,3 +82,14 @@ export const addNewTodo = async (userDocID, todoListName, message) => {
     console.log(e);
   }
 }
+
+export const getTodoMessages = async (userDocID, todoListName) => {
+  try{
+    const q = query(collection(db, `user/${userDocID}/todosList`), where("listName", "==", todoListName));
+    const querySnapshot = await getDocs(q);
+    const doc = querySnapshot.docs[0].data();
+    return doc;
+  } catch (e){
+    console.log(e);
+  }
+}
