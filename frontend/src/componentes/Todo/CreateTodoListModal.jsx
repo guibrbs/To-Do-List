@@ -3,12 +3,18 @@ import { UserContext } from "../../context/UserContext";
 import { createTodoList } from "../../firebase-config";
 import CloseButton from "../CloseButton";
 
-const CreateTodoListModal = ({setOpenCreateTodoListModal}) => {
+const CreateTodoListModal = ({setOpenCreateTodoListModal, setOpenTodoListModal, setTodoTitle}) => {
   const [todoListName, setTodoListName] = useState('');
   const {userDocID} = useContext(UserContext);
 
   const handleCreateNewTodoList = async () => {
-    await createTodoList(todoListName, userDocID);
+    const response = await createTodoList(todoListName, userDocID);
+    if (response){
+        setOpenCreateTodoListModal(false);
+        console.log(todoListName)
+        setTodoTitle(todoListName)
+        setOpenTodoListModal(true);
+    }   
   }
 
   return (

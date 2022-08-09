@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { addDoc, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, updateDoc, where } from "firebase/firestore"
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, updateDoc, where } from "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCrRgWvvfEysKl41qoyt80nK8RobVn_IQk",
@@ -66,8 +66,19 @@ export const createTodoList = async (listName, userDocID) => {
       listName,
       todos: []
     }, { merge: true })
-
+    return true;
   } catch (e){
+    console.log(e);
+  }
+};
+
+export const addNewTodo = async (userDocID, todoListName, message) => {
+  const todoListRef = doc(db, `user/${userDocID}/todosList/${todoListName}`); 
+  try{
+    await updateDoc(todoListRef, {
+      todos: arrayUnion(message)
+    })
+  }catch (e){
     console.log(e);
   }
 }

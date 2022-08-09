@@ -11,6 +11,7 @@ const Homepage = () => {
   const [openCreateTodoListModal, setOpenCreateTodoListModal] = useState(false);
   const [openTodoListModal, setOpenTodoListModal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [todoTitle, setTodoTitle] = useState("");
   const { user, setUserDocID } = useContext(UserContext);
 
   useEffect(() => {
@@ -28,16 +29,24 @@ const Homepage = () => {
   ) : (
     <div className="flex flex-col w-full h-screen items-center relative">
       {(openCreateTodoListModal || openTodoListModal) && (
-          <>
-            <div className="w-full h-full bg-[#000] bg-opacity-60 absolute z-[1]" />
-            {openCreateTodoListModal && (
-              <CreateTodoListModal
-                setOpenCreateTodoListModal={setOpenCreateTodoListModal}
-              />
-            )}
-            {openTodoListModal && <TodoListModal />}
-          </>
-        )}
+        <>
+          <div className="w-full h-full bg-[#000] bg-opacity-60 absolute z-[1]" />
+          {openCreateTodoListModal && (
+            <CreateTodoListModal
+              setOpenCreateTodoListModal={setOpenCreateTodoListModal}
+              setOpenTodoListModal={setOpenTodoListModal}
+              setTodoTitle={setTodoTitle}
+            />
+          )}
+          {openTodoListModal && (
+            <TodoListModal
+              setOpenTodoListModal={setOpenTodoListModal}
+              todoTitle={todoTitle}
+              setTodoTitle={setTodoTitle}
+            />
+          )}
+        </>
+      )}
       <button
         className="text-text flex gap-1 items-center absolute z-0 top-12 right-24"
         onClick={() => auth.signOut()}
