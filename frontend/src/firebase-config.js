@@ -93,3 +93,16 @@ export const getTodoMessages = async (userDocID, todoListName) => {
     console.log(e);
   }
 }
+
+export const getAllTodoList = async (userDocID) => {
+  try{
+    const q = query(collection(db, `user/${userDocID}/todosList`));
+    const querySnapshot = await getDocs(q);
+    const docs = querySnapshot.docs.map((doc) => {
+      return doc.data();
+    })
+    return docs;
+  } catch (e) {
+    console.log(e);
+  }
+}
