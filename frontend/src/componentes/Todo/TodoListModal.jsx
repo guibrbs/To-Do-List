@@ -4,6 +4,7 @@ import { addNewTodo, getTodoMessages } from "../../firebase-config";
 import CloseButton from "../CloseButton";
 import AddTodoInput from "./AddTodoInput";
 import TodoMap from "./TodoMap";
+import { colorsSelector } from "../../utils/colorsSelector";
 
 const TodoListModal = ({ setOpenTodoListModal, todosQtt, todoTitle }) => {
   /*const buttonStyle = colorsSelector(todosQtt);*/
@@ -16,7 +17,6 @@ const TodoListModal = ({ setOpenTodoListModal, todosQtt, todoTitle }) => {
     const fetchTodoContent = async () => {
       const data = await getTodoMessages(userDocID, todoTitle);
       setTodos(data.todos);
-      console.log(data.todos);
     };
     if (updateTodos) {
       fetchTodoContent();
@@ -33,10 +33,11 @@ const TodoListModal = ({ setOpenTodoListModal, todosQtt, todoTitle }) => {
   return (
     <div
       className="w-full fixed max-w-xl h-[33rem] top-1/2 bg-secondary rounded-3xl 
-        flex flex-col items-center pt-28 pb-8 px-20 gap-5 z-[2] translate-y-[-50%]"
+        flex flex-col items-center pt-28 pb-8 px-20 gap-5 z-[4] translate-y-[-50%]"
     >
-      <div className="w-full fixed max-w-xl h-20 top-0 bg-pink rounded-t-3xl flex items-center">
-        <h1 className="ml-4 text-text font-bold text-3xl bg-pink px-2" >
+      <div className={`w-full fixed max-w-xl h-20 top-0 rounded-t-3xl flex items-center`}
+      style={{backgroundColor: colorsSelector(todosQtt)}}>
+        <h1 className="ml-4 text-text font-bold text-3xl px-2" >
           {todoTitle}
         </h1>
       </div>
