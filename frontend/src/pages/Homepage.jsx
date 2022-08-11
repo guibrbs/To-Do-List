@@ -57,6 +57,7 @@ const Homepage = () => {
               todoTitle={todoTitle}
               setTodoTitle={setTodoTitle}
               todosQtt={todosQtt}
+              setUpdateTodoList={setUpdateTodoList}
             />
           )}
         </>
@@ -80,6 +81,7 @@ const Homepage = () => {
             setOpenTodoListModal={setOpenTodoListModal}
             setTodoTitle={setTodoTitle}
             setTodosQtt={setTodosQtt}
+            setUpdateTodoList={setUpdateTodoList}
           />
           <button
             className="w-48 h-28 rounded-3xl border border-textDarker bg-[#16161E]

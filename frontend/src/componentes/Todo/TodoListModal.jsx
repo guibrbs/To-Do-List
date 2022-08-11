@@ -6,9 +6,8 @@ import AddTodoInput from "./AddTodoInput";
 import TodoMap from "./TodoMap";
 import { colorsSelector } from "../../utils/colorsSelector";
 
-const TodoListModal = ({ setOpenTodoListModal, todosQtt, todoTitle }) => {
+const TodoListModal = ({ setOpenTodoListModal, todosQtt, todoTitle, setUpdateTodoList }) => {
   /*const buttonStyle = colorsSelector(todosQtt);*/
-  const [todoMessage, setTodoMessage] = useState({});
   const [todos, setTodos] = useState([]);
   const [updateTodos, setUpdateTodos] = useState(true);
   const { userDocID } = useContext(UserContext);
@@ -17,17 +16,17 @@ const TodoListModal = ({ setOpenTodoListModal, todosQtt, todoTitle }) => {
     const fetchTodoContent = async () => {
       const data = await getTodoMessages(userDocID, todoTitle);
       setTodos(data.todos);
+      setUpdateTodoList(true);
     };
     if (updateTodos) {
       fetchTodoContent();
       setUpdateTodos(false);
     }
-  }, [todoTitle, userDocID, updateTodos]);
+  }, [todoTitle, userDocID, updateTodos, setUpdateTodoList]);
 
-  const handleSubmitNewTodo = async () => {
-    await addNewTodo(userDocID, todoTitle, todoMessage);
+  const handleSubmitNewTodo = async (message) => {
+    await addNewTodo(userDocID, todoTitle, {message, done: false});
     setUpdateTodos(true);
-    setTodoMessage("");
   };
 
   return (
@@ -42,12 +41,8 @@ const TodoListModal = ({ setOpenTodoListModal, todosQtt, todoTitle }) => {
         </h1>
       </div>
       <CloseButton onClick={() => setOpenTodoListModal(false)} />
-      <AddTodoInput
-        setTodoMessage={setTodoMessage}
-        handleSubmitNewTodo={handleSubmitNewTodo}
-        todoMessage={todoMessage}
-      />
-      <TodoMap todos={todos} />
+      <AddTodoInput handleSubmitNewTodo={handleSubmitNewTodo}/>
+      <TodoMap todos={todos} todoTitle={todoTitle} setUpdateTodos={setUpdateTodos}/>
     </div>
   );
 };
