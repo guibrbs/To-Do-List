@@ -15,6 +15,7 @@ const Homepage = () => {
   const [todoTitle, setTodoTitle] = useState("");
   const [todosQtt, setTodosQtt] = useState(-1);
   const [allTodoList, setAllTodoList] = useState();
+  const [selectedTodoList, setSelectedTodoList] = useState(todosQtt)
   const [updateTodoList, setUpdateTodoList] = useState(true);
   const { user, setUserDocID, userDocID } = useContext(UserContext);
 
@@ -56,7 +57,7 @@ const Homepage = () => {
               setOpenTodoListModal={setOpenTodoListModal}
               todoTitle={todoTitle}
               setTodoTitle={setTodoTitle}
-              todosQtt={todosQtt}
+              colorPosition={selectedTodoList}
               setUpdateTodoList={setUpdateTodoList}
             />
           )}
@@ -82,6 +83,7 @@ const Homepage = () => {
             setTodoTitle={setTodoTitle}
             setTodosQtt={setTodosQtt}
             setUpdateTodoList={setUpdateTodoList}
+            setSelectedTodoList={setSelectedTodoList}
           />
           <button
             className="w-48 h-28 rounded-3xl border border-textDarker bg-[#16161E]

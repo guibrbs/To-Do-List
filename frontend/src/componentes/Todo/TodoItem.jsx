@@ -2,9 +2,10 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { deleteTodoFromTodoList } from "../../firebase-config";
 
-const TodoItem = ({ todo, todoTitle, setUpdateTodos, todoPos, editTodoMessage }) => {
+const TodoItem = ({ todo, todoTitle, setUpdateTodos, todoPos, editTodoMessage, editTodoState }) => {
   const { userDocID } = useContext(UserContext);
   const [disableInput, setDisableInput] = useState(true);
+  const [todoIsDone, setTodoIsDone] = useState(todo.done);
   const [newTodoMessage, setNewTodoMessage] = useState(todo.message);
 
   const handleDeleteTodoFromTodoList = async (message, done) => {
@@ -26,6 +27,11 @@ const TodoItem = ({ todo, todoTitle, setUpdateTodos, todoPos, editTodoMessage })
     editTodoMessage(newTodoMessage, todoPos);
   };
 
+  const handleEditTodoState = () => {
+    editTodoState(todoPos);
+    setTodoIsDone(!todoIsDone);
+  }
+
   return (
     <div
       className="text-text flex items-center w-full relative after:content-[''] after:absolute 
@@ -34,9 +40,10 @@ const TodoItem = ({ todo, todoTitle, setUpdateTodos, todoPos, editTodoMessage })
       <input
         type="checkbox"
         className="w-5 h-5 mr-4 text-pink appearance-none
-                         rounded-full checked:bg-pink checked:ring-text checked:ring-1 border-text
-                         border checked:border-secondary checked:border-2 cursor-pointer"
-        onClick={() => {}}
+        rounded-full checked:bg-pink checked:ring-text checked:ring-1 border-text
+        border checked:border-secondary checked:border-2 cursor-pointer"
+        onClick={handleEditTodoState}
+        checked={todoIsDone}
       />
       <input
         className={`font-light text-lg px-1 bg-secondary enabled:border-b enabled:focus:outline-none 

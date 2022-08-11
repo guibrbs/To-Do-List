@@ -8,15 +8,13 @@ import TodoItem from "./TodoItem";
 
 const TodoListModal = ({
   setOpenTodoListModal,
-  todosQtt,
+  colorPosition,
   todoTitle,
   setUpdateTodoList,
 }) => {
-  /*const buttonStyle = colorsSelector(todosQtt);*/
   const [todos, setTodos] = useState([]);
   const [updateTodos, setUpdateTodos] = useState(true);
   const { userDocID } = useContext(UserContext);
-
   useEffect(() => {
     const fetchTodoContent = async () => {
       const data = await getTodoMessages(userDocID, todoTitle);
@@ -44,6 +42,17 @@ const TodoListModal = ({
     await updateTodoItems(userDocID, todoTitle, newTodosArray);
   }
 
+  const editTodoState = async (todoPos) => {
+    const newTodosArray = todos.map((todo, index) => {
+      if(index === todoPos){
+        todo.done = !todo.done;
+      }
+      return todo;
+    });
+    await updateTodoItems(userDocID, todoTitle, newTodosArray);
+    setUpdateTodoList(true);
+  }
+
   return (
     <div
       className="w-full fixed max-w-xl h-[33rem] top-1/2 bg-secondary rounded-3xl 
@@ -51,7 +60,7 @@ const TodoListModal = ({
     >
       <div
         className={`w-full fixed max-w-xl h-20 top-0 rounded-t-3xl flex items-center`}
-        style={{ backgroundColor: colorsSelector(todosQtt) }}
+        style={{ backgroundColor: colorsSelector(colorPosition) }}
       >
         <h1 className="ml-4 text-text font-bold text-3xl px-2">{todoTitle}</h1>
       </div>
@@ -66,6 +75,7 @@ const TodoListModal = ({
             setUpdateTodos={setUpdateTodos}
             todoPos={index}
             editTodoMessage={editTodoMessage}
+            editTodoState={editTodoState}
           />
         ))}
       </div>

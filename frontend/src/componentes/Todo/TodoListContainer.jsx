@@ -11,14 +11,14 @@ const TodoListContainer = ({
   todosQtt,
   setOpenTodoListModal,
   setTodoTitle,
-  setTodosQtt,
-  setUpdateTodoList
+  setUpdateTodoList,
+  setSelectedTodoList
 }) => {
   const { userDocID } = useContext(UserContext);
   const handleOpenTodoList = (todoTitle, index) => {
     setTodoTitle(todoTitle);
     setOpenTodoListModal(true);
-    setTodosQtt(index);
+    setSelectedTodoList(index);
   };
 
   const handleDeleteTodoList = async (todoListName) => {
