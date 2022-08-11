@@ -125,3 +125,14 @@ export const deleteTodoFromTodoList = async (userDocID, todoListName, messageToD
     console.log(e);
   }
 }
+
+export const updateTodoItems = async (userDocID, todoListName, newTodoArray) => {
+  try{
+    const todoListRef = doc(db, `user/${userDocID}/todosList/${todoListName}`); 
+    await updateDoc(todoListRef, {
+      todos: newTodoArray,
+    }); 
+  } catch (e){
+    console.log(e);
+  }
+}
