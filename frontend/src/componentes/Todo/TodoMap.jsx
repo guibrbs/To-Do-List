@@ -1,4 +1,17 @@
-const TodoMap = ({ todos }) => {
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import { deleteTodoFromTodoList } from "../../firebase-config";
+
+const TodoMap = ({ todos, todoTitle, setUpdateTodos }) => {
+  const {userDocID} = useContext(UserContext);
+  const handleDeleteTodoFromTodoList = async (message, done) => {
+    const messageToDelete = {
+      message,
+      done
+    }
+    await deleteTodoFromTodoList(userDocID, todoTitle, messageToDelete);
+    setUpdateTodos(true);
+  }
   return (
     <div className="w-full h-full">
       {todos.map((todo, index) => {
@@ -28,6 +41,7 @@ const TodoMap = ({ todos }) => {
               <span
                 className="material-symbols-outlined text-xl cursor-pointer 
               hover:brightness-90 transition-colors"
+              onClick={() => handleDeleteTodoFromTodoList(todo.message, todo.done)}
               >
                 delete
               </span>

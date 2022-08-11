@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, query, setDoc, updateDoc, where } from "firebase/firestore"
+import { addDoc, arrayRemove, arrayUnion, collection, deleteDoc, doc, getDocs, getFirestore, query, setDoc, updateDoc, where } from "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: "AIzaSyCrRgWvvfEysKl41qoyt80nK8RobVn_IQk",
@@ -103,6 +103,25 @@ export const getAllTodoList = async (userDocID) => {
     })
     return docs;
   } catch (e) {
+    console.log(e);
+  }
+}
+
+export const deleteTodoList = async (userDocID, todoListName) => {
+  try{
+    await deleteDoc(doc(db, `user/${userDocID}/todosList/${todoListName}`))
+  } catch(e){
+    console.log(e);
+  }
+}
+
+export const deleteTodoFromTodoList = async (userDocID, todoListName, messageToDelete) => {
+  try{
+    const todoListRef = doc(db, `user/${userDocID}/todosList/${todoListName}`); 
+    await updateDoc(todoListRef, {
+      todos: arrayRemove(messageToDelete),
+    }); 
+  } catch(e){
     console.log(e);
   }
 }
